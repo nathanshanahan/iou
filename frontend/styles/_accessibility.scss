@@ -1,0 +1,52 @@
+@use "sass:math";
+@use "helpers/library" as *;
+
+@mixin screenReaderText {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	pointer-events: none;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+.screen-reader-text, 
+.sr-only {
+	@include screenReaderText;
+}
+
+.skip-to-link:not(:focus-visible) {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute	;
+	width: 1px;
+}
+
+.skip-to-link {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	color: var(--color-white);
+	background: var(--color-black);
+	outline: none;
+	padding: 10px 16px;
+	transition: background .15s var(--ease);
+	z-index: var(--z-max);
+	border: 1px solid transparent;
+	&:hover {
+		color: var(--color-black);
+		background: var(--color-white);
+		border: 1px solid currentColor;
+	}
+}
+
+

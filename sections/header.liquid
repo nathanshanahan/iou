@@ -1,0 +1,62 @@
+<header class="masthead masthead">
+  <div class="masthead__inner">
+    <a href="{{ routes.root_url }}" class="masthead__logo">
+      {%- if section.settings.logo != blank -%}
+        {{
+          section.settings.logo
+          | image_url: width: 300
+          | image_tag: loading: 'eager', fetchpriority: 'high', alt: section.settings.logo.alt | default: shop.name
+        }}
+      {%- else -%}
+        {{ shop.name }}
+      {%- endif -%}
+    </a>
+
+    <nav class="site-nav" aria-label="{{ 'accessibility.main_menu' | t }}">
+      {%- if section.settings.menu != blank -%}
+        <ul class="site-nav__list" role="list">
+          {%- for link in section.settings.menu.links -%}
+            <li>
+              <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>
+                {{ link.title }}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </nav>
+
+    <div class="masthead__icons">
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" aria-label="{{ 'customer.account.title' | t }}">
+          {% render 'icon-account' %}
+        </a>
+      {%- endif -%}
+
+      <a href="{{ routes.cart_url }}" aria-label="{{ 'cart.title' | t }}">
+        {% render 'icon-cart' %}
+        <span class="cart-count">{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu"
+    }
+  ]
+}
+{% endschema %}

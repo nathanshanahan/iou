@@ -1,0 +1,54 @@
+<div class="main-index">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'rich_text' -%}
+        <div class="rich-text" {{ block.shopify_attributes }}>
+          {%- if block.settings.heading != blank -%}
+            <h2>{{ block.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <div class="rte">{{ block.settings.text }}</div>
+          {%- endif -%}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Home",
+  "tag": "section",
+  "class": "section-main-index",
+  "blocks": [
+    {
+      "type": "rich_text",
+      "name": "Rich text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Welcome",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Use this section to introduce your store.</p>",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home",
+      "blocks": [
+        { "type": "rich_text" }
+      ]
+    }
+  ]
+}
+{% endschema %}

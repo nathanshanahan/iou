@@ -1,0 +1,28 @@
+.pagination {
+  margin-top: var(--space-12);
+
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  a, span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding-inline: var(--space-3);
+    border: 1px solid currentColor;
+    text-decoration: none;
+  }
+
+  span[aria-current="page"] {
+    background: var(--color-accent);
+    color: var(--color-background);
+    border-color: var(--color-accent);
+  }
+}

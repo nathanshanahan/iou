@@ -1,0 +1,32 @@
+@use "../helpers/library" as *;
+
+.card-product {
+  &__link {}
+
+  &__media {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: calc(var(--ratio-percent, 100%) * 1%);
+    background: #f5f5f5;
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-base);
+    }
+
+    &:hover img {
+      transform: scale(1.03);
+    }
+  }
+
+  &__info {}
+
+  &__title {}
+
+  &__price {}
+}
+

@@ -1,0 +1,124 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<section class="main-product" {{ section.shopify_attributes }}>
+  <div class="main-product__inner">
+
+    <div class="main-product__media">
+      {%- if product.featured_media -%}
+        {{
+          product.featured_media
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '400, 600, 800, 1000, 1200',
+            sizes: '(min-width: 1200px) 600px, 50vw',
+            alt: product.featured_media.alt | default: product.title
+        }}
+      {%- endif -%}
+    </div>
+
+    <div class="main-product__info">
+      <h1 class="main-product__title">{{ product.title }}</h1>
+
+      {%- if product.vendor != blank and section.settings.show_vendor -%}
+        <p class="main-product__vendor">{{ product.vendor }}</p>
+      {%- endif -%}
+
+      <div class="main-product__price">
+        {{- current_variant.price | money -}}
+        {%- if current_variant.compare_at_price > current_variant.price -%}
+          <s>{{ current_variant.compare_at_price | money }}</s>
+        {%- endif -%}
+      </div>
+
+      {%- unless product.has_only_default_variant -%}
+        <variant-selector data-section="{{ section.id }}" data-url="{{ product.url }}">
+          {%- for option in product.options_with_values -%}
+            <div class="product-option">
+              <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                name="options[{{ option.name | escape }}]"
+              >
+                {%- for value in option.values -%}
+                  <option
+                    value="{{ value | escape }}"
+                    {% if option.selected_value == value %}selected{% endif %}
+                  >
+                    {{ value }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endfor -%}
+        </variant-selector>
+      {%- endunless -%}
+
+      <product-form>
+        {%- form 'product', product, id: 'ProductForm', novalidate: true -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+          <button
+            type="submit"
+            name="add"
+            class="button button--primary"
+            {% if current_variant.available == false %}disabled{% endif %}
+          >
+            {%- if current_variant.available -%}
+              {{ 'products.product.add_to_cart' | t }}
+            {%- else -%}
+              {{ 'products.product.sold_out' | t }}
+            {%- endif -%}
+          </button>
+        {%- endform -%}
+      </product-form>
+
+      {%- if section.settings.show_description and product.description != blank -%}
+        <div class="main-product__description rte">
+          {{ product.description }}
+        </div>
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "section",
+  "class": "section-main-product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "Show vendor"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "default": true,
+      "label": "Show description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product"
+    }
+  ]
+}
+{% endschema %}

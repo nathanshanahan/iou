@@ -1,0 +1,61 @@
+@use "../config" as *;
+@use "library" as *;
+
+:root {
+	// Update to match project requirements
+	--grid-column-count: 12; // Number of columns as per designs (desktop) 
+	--grid-column-gap: 1.5rem; // spacing between columns
+	--grid-padding-inline: 2rem; // spacing between content and window edge (slug)
+
+	// Override only if necessary
+	--grid-column-count-minus-1: calc(var(--grid-column-count) - 1);
+	--grid-row-gap: 0;
+	--content-breakpoint: #{$contentWidth};
+	--content-max-width: calc(var(--content-breakpoint) + (var(--grid-padding-inline) * 2));
+	--margin-inline: auto;
+
+	// any breakpoint lower than $contentWidth can be used to adjust the number of columns, spacing between columns and spacing between content and window edge as per these examples. 
+
+	@include screenDown('tablet-portrait') {
+		--grid-column-count: 4;
+		--grid-column-gap: 1rem;
+		--grid-padding-inline: 1rem;
+	}
+
+	@include screenDown('mobile') {
+		--grid-column-count: 2;
+		--grid-column-gap: 1rem;
+		--grid-padding-inline: 1rem;
+	}
+}
+
+.grid-container {
+	column-gap: var(--grid-column-gap);
+	display: grid;
+	grid-template-columns: repeat(var(--grid-column-count), 1fr);
+	margin-inline: var(--margin-inline, auto);
+	max-width: var(--content-max-width);
+	padding-inline: var(--grid-padding-inline);
+	row-gap: var(--grid-row-gap);
+}
+
+// To bre used when an element needs to reach the browser window or gutter edge
+.grid-container-page-width {
+	--column-max-width: calc((var(--content-breakpoint) - (var(--grid-column-count-minus-1) * var(--grid-column-gap))) / var(--grid-column-count));
+	display: grid;
+	width: 100%;
+
+	grid-template-columns:
+		1fr var(--grid-padding-inline) repeat(var(--grid-column-count-minus-1),
+			minmax(auto, var(--column-max-width)) var(--grid-column-gap)) minmax(auto, var(--column-max-width)) var(--grid-padding-inline) 1fr;
+
+	@include screenDown('mobile') {
+		column-gap: var(--grid-column-gap);
+		grid-template-columns: repeat(var(--grid-column-count), 1fr);
+		margin-inline: var(--margin-inline, auto);
+		max-width: var(--content-max-width);
+		padding-inline: var(--grid-padding-inline);
+		row-gap: var(--grid-row-gap);
+	}
+}
+

@@ -1,0 +1,39 @@
+@use "../helpers/library" as *;
+
+@mixin buttonReset {
+	text-decoration: none;
+	background: none;
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	appearance: none;
+	padding: 0;
+	cursor: pointer;
+	color: inherit;
+
+	&[disabled] {
+		cursor: not-allowed;
+	}
+}
+
+.button {
+
+	@include buttonReset();
+	background: var(--color-button-background, var(--ui-default-background));
+	color: var(--color-button-foreground, var(--ui-default-color));
+
+	&:hover, 
+	&:focus-visible {
+		background-color: var(--color-button-background-interact, var(--ui-interact-background));
+		color: var(--color-button-foreground-interact, var(--ui-interact-color)); 
+	}
+
+  	&--primary {
+		--color-button-background: var(--color-accent);
+		--color-button-foreground: white;
+		--color-button-background-interact: black;
+		--color-button-foreground-interact: white;
+	}
+
+}
+

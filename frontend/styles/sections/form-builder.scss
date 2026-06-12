@@ -1,0 +1,164 @@
+@use "sass:math";
+@use "../helpers/library" as *;
+
+.contact-form-section {
+	padding: 2rem 0;
+	
+	&__container {
+		max-width: var(--page-width);
+		padding: 0 var(--page-gutter);
+		margin: 0 auto;
+	}
+}
+
+
+.contact-form {
+	&__success {
+		color: var(--form-success-foreground); 
+	}
+
+	&__errors {
+		color: var(--form-error-foreground);
+	}
+
+	&__required {
+	  color: var(-form-required-foreground);
+	}
+
+	/* Input Fields */
+	&__input,
+	&__textarea,
+	&__select {
+		border: 1px solid var(--color-border);
+		font-size: 1rem;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+
+	&__input:focus,
+	&__textarea:focus,
+	&__select:focus {
+		outline: none;
+		border-color: var(--ui-focus-color);
+	}
+
+	&__textarea {
+		resize: vertical;
+		min-height: 120px;
+	}
+
+	/* Checkbox and Radio Fields */
+	&__checkbox-wrapper,
+		&__radio-wrapper {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+	}
+
+	&__checkbox,
+	&__radio {
+		margin: 0;
+		margin-top: 0.25rem;
+	}
+
+	&__checkbox-label,
+	&__radio-label {
+		font-weight: normal;
+		margin: 0;
+		cursor: pointer;
+		user-select: none;
+	}
+
+	&__radio-group {
+		border: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	&__radio-group legend {
+		padding: 0;
+		margin-bottom: 1rem;
+	}
+
+	&__radio-wrapper {
+		margin-bottom: 0.75rem;
+	}
+
+	&__radio-wrapper:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Utility Classes */
+	&__spacer {
+		grid-column: 1 / -1;
+	}
+
+	&__html {
+		grid-column: 1 / -1;
+	}
+
+	&__html p {
+		margin: 0;
+	}
+
+	/* Required Field Styling */
+	&__field--required .contact-form__label {
+		position: relative;
+	}
+
+	.contact-form__field--required .contact-form__input:invalid,
+	.contact-form__field--required .contact-form__textarea:invalid,
+	.contact-form__field--required .contact-form__select:invalid {
+		border-color: var(--form-error-foreground);
+	}
+
+	/* Accessibility Improvements */
+	.contact-form__input:focus-visible,
+	.contact-form__textarea:focus-visible,
+	.contact-form__select:focus-visible,
+	.contact-form__checkbox:focus-visible,
+	.contact-form__radio:focus-visible,
+	.contact-form__submit:focus-visible {
+		outline: 2px solid var(--ui-focus-color);
+		outline-offset: 2px;
+	}
+
+	/* Form Builder Layout */
+	&__fields {
+		display: grid;
+		gap: 1.5rem;
+		grid-template-columns: 1fr;
+	}
+	
+	&__field {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	&__field--half {
+		grid-column: span 1;
+	}
+	
+	&__field--third {
+		grid-column: span 1;
+	}
+	
+	@include screenUp('main') {
+		&__fields {
+		  grid-template-columns: repeat(12, 1fr);
+		}
+		
+		&__field--full {
+		  grid-column: 1 / -1;
+		}
+		
+		&__field--half {
+		  grid-column: span 6;
+		}
+		
+		&__field--third {
+		  grid-column: span 4;
+		}
+	}
+}

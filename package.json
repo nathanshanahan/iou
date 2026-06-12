@@ -1,0 +1,17 @@
+{
+  "name": "shopify-base-theme",
+  "version": "1.0.0",
+  "description": "Minimal Shopify base theme",
+  "scripts": {
+    "dev": "concurrently \"shopify theme dev --environment development\" \"vite build --watch\"",
+    "build": "vite build",
+    "push": "shopify theme push --environment production",
+    "push:staging": "shopify theme push --environment staging",
+    "check": "shopify theme check"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "sass": "^1.70.0",
+    "vite": "^5.1.0"
+  }
+}

@@ -1,0 +1,774 @@
+{%- liquid
+  assign form_id = section.id | append: '_contact_form'
+  assign form_class = 'contact-form'
+-%}
+
+<section class="contact-form-section {{ section.settings.section_class }}" id="section-{{ section.id }}">
+  <div class="contact-form-section__container">
+    {%- if section.settings.heading != blank -%}
+      <div class="contact-form__header">
+        <h2 class="contact-form__heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.subheading != blank -%}
+          <p class="contact-form__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- form 'contact', id: form_id, class: form_class -%}
+      {%- if form.posted_successfully? -%}
+        <div class="contact-form__success" role="status">
+          {{ section.settings.success_message | default: 'Thank you! Your message has been sent successfully.' }}
+        </div>
+      {%- endif -%}
+
+      {%- if form.errors -%}
+        <div class="contact-form__errors" role="alert">
+          <h3 class="contact-form__errors-heading">{{ 'contact.form.error_heading' | t | default: 'There were some errors with your submission:' }}</h3>
+          <ul class="contact-form__errors-list">
+            {%- for field in form.errors -%}
+              <li>
+                {%- if field == 'form' -%}
+                  {{ form.errors.messages[field] }}
+                {%- else -%}
+                  {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      <div class="contact-form__fields">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign field_id = block.id
+            assign field_name = block.settings.field_name
+            assign field_label = block.settings.label
+            assign field_placeholder = block.settings.placeholder
+            assign field_required = block.settings.required
+            assign field_class = 'contact-form__field'
+            
+            if block.settings.field_width != blank
+              assign field_class = field_class | append: ' contact-form__field--' | append: block.settings.field_width
+            endif
+            
+            if field_required
+              assign field_class = field_class | append: ' contact-form__field--required'
+            endif
+          -%}
+
+          <div class="{{ field_class }}" {{ block.shopify_attributes }}>
+            {%- case block.type -%}
+              
+              {%- when 'text_input' -%}
+                <label for="{{ field_id }}" class="contact-form__label">
+                  {{ field_label }}
+                  {%- if field_required -%}<span class="contact-form__required">*</span>{%- endif -%}
+                </label>
+                <input
+                  type="text"
+                  id="{{ field_id }}"
+                  name="contact[{{ field_name }}]"
+                  class="contact-form__input"
+                  placeholder="{{ field_placeholder }}"
+                  value="{{ form[field_name] }}"
+                  {% if field_required %}required{% endif %}
+                  {% if block.settings.autocomplete != blank %}autocomplete="{{ block.settings.autocomplete }}"{% endif %}
+                >
+
+              {%- when 'email_input' -%}
+                <label for="{{ field_id }}" class="contact-form__label">
+                  {{ field_label }}
+                  {%- if field_required -%}<span class="contact-form__required">*</span>{%- endif -%}
+                </label>
+                <input
+                  type="email"
+                  id="{{ field_id }}"
+                  name="contact[email]"
+                  class="contact-form__input"
+                  placeholder="{{ field_placeholder }}"
+                  value="{{ form.email }}"
+                  {% if field_required %}required{% endif %}
+                  autocomplete="email"
+                >
+
+              {%- when 'phone_input' -%}
+                <label for="{{ field_id }}" class="contact-form__label">
+                  {{ field_label }}
+                  {%- if field_required -%}<span class="contact-form__required">*</span>{%- endif -%}
+                </label>
+                <input
+                  type="tel"
+                  id="{{ field_id }}"
+                  name="contact[{{ field_name }}]"
+                  class="contact-form__input"
+                  placeholder="{{ field_placeholder }}"
+                  value="{{ form[field_name] }}"
+                  {% if field_required %}required{% endif %}
+                  autocomplete="tel"
+                >
+
+              {%- when 'textarea' -%}
+                <label for="{{ field_id }}" class="contact-form__label">
+                  {{ field_label }}
+                  {%- if field_required -%}<span class="contact-form__required">*</span>{%- endif -%}
+                </label>
+                <textarea
+                  id="{{ field_id }}"
+                  name="contact[{{ field_name }}]"
+                  class="contact-form__textarea"
+                  placeholder="{{ field_placeholder }}"
+                  rows="{{ block.settings.rows | default: 4 }}"
+                  {% if field_required %}required{% endif %}
+                >{{ form[field_name] }}</textarea>
+
+              {%- when 'select' -%}
+                <label for="{{ field_id }}" class="contact-form__label">
+                  {{ field_label }}
+                  {%- if field_required -%}<span class="contact-form__required">*</span>{%- endif -%}
+                </label>
+                <select
+                  id="{{ field_id }}"
+                  name="contact[{{ field_name }}]"
+                  class="contact-form__select"
+                  {% if field_required %}required{% endif %}
+                >
+                  <option value="">{{ block.settings.default_option | default: 'Please select...' }}</option>
+                  {%- assign options = block.settings.options | split: ',' -%}
+                  {%- for option in options -%}
+                    {%- assign option_trimmed = option | strip -%}
+                    <option value="{{ option_trimmed }}" {% if form[field_name] == option_trimmed %}selected{% endif %}>
+                      {{ option_trimmed }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+
+              {%- when 'checkbox' -%}
+                <div class="contact-form__checkbox-wrapper">
+                  <input
+                    type="checkbox"
+                    id="{{ field_id }}"
+                    name="contact[{{ field_name }}]"
+                    class="contact-form__checkbox"
+                    value="yes"
+                    {% if form[field_name] == 'yes' %}checked{% endif %}
+                    {% if field_required %}required{% endif %}
+                  >
+                  <label for="{{ field_id }}" class="contact-form__checkbox-label">
+                    {{ field_label }}
+                    {%- if field_required -%}<span class="contact-form__required">*</span>{%- endif -%}
+                  </label>
+                </div>
+
+              {%- when 'radio' -%}
+                <fieldset class="contact-form__radio-group">
+                  <legend class="contact-form__label">
+                    {{ field_label }}
+                    {%- if field_required -%}<span class="contact-form__required">*</span>{%- endif -%}
+                  </legend>
+                  {%- assign options = block.settings.options | split: ',' -%}
+                  {%- for option in options -%}
+                    {%- assign option_trimmed = option | strip -%}
+                    {%- assign radio_id = field_id | append: '_' | append: forloop.index -%}
+                    <div class="contact-form__radio-wrapper">
+                      <input
+                        type="radio"
+                        id="{{ radio_id }}"
+                        name="contact[{{ field_name }}]"
+                        class="contact-form__radio"
+                        value="{{ option_trimmed }}"
+                        {% if form[field_name] == option_trimmed %}checked{% endif %}
+                        {% if field_required %}required{% endif %}
+                      >
+                      <label for="{{ radio_id }}" class="contact-form__radio-label">{{ option_trimmed }}</label>
+                    </div>
+                  {%- endfor -%}
+                </fieldset>
+
+              {%- when 'hidden' -%}
+                <input
+                  type="hidden"
+                  name="contact[{{ field_name }}]"
+                  value="{{ block.settings.value }}"
+                >
+
+              {%- when 'spacer' -%}
+                <div class="contact-form__spacer" style="height: {{ block.settings.height | default: 20 }}px;"></div>
+
+              {%- when 'html' -%}
+                <div class="contact-form__html">
+                  {{ block.settings.html }}
+                </div>
+
+            {%- endcase -%}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="contact-form__actions">
+        <button type="submit" class="contact-form__submit button">
+          {{ section.settings.submit_label | default: 'Send Message' }}
+        </button>
+      </div>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Form Builder",
+  "tag": "section",
+  "class": "section-form-builder",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Form Heading",
+      "default": "Contact Us"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Form Subheading",
+      "info": "Optional description text below the heading"
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Submit Button Text",
+      "default": "Send Message"
+    },
+    {
+      "type": "textarea",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Thank you! Your message has been sent successfully."
+    },
+    {
+      "type": "text",
+      "id": "section_class",
+      "label": "Section CSS Class",
+      "info": "Optional CSS class for custom styling"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_input",
+      "name": "Text Input",
+      "settings": [
+        {
+          "type": "text",
+          "id": "field_name",
+          "label": "Field Name",
+          "default": "name",
+          "info": "Used for form submission (no spaces, lowercase recommended)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Field Label",
+          "default": "Name"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required Field",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "field_width",
+          "label": "Field Width",
+          "options": [
+            {
+              "value": "full",
+              "label": "Full Width"
+            },
+            {
+              "value": "half",
+              "label": "Half Width"
+            },
+            {
+              "value": "third",
+              "label": "One Third"
+            }
+          ],
+          "default": "full"
+        },
+        {
+          "type": "select",
+          "id": "autocomplete",
+          "label": "Autocomplete",
+          "options": [
+            {
+              "value": "",
+              "label": "None"
+            },
+            {
+              "value": "name",
+              "label": "Name"
+            },
+            {
+              "value": "given-name",
+              "label": "First Name"
+            },
+            {
+              "value": "family-name",
+              "label": "Last Name"
+            },
+            {
+              "value": "organization",
+              "label": "Company"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "email_input",
+      "name": "Email Input",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Field Label",
+          "default": "Email Address"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder Text",
+          "default": "your@email.com"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required Field",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "field_width",
+          "label": "Field Width",
+          "options": [
+            {
+              "value": "full",
+              "label": "Full Width"
+            },
+            {
+              "value": "half",
+              "label": "Half Width"
+            },
+            {
+              "value": "third",
+              "label": "One Third"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "type": "phone_input",
+      "name": "Phone Input",
+      "settings": [
+        {
+          "type": "text",
+          "id": "field_name",
+          "label": "Field Name",
+          "default": "phone"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Field Label",
+          "default": "Phone Number"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required Field",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "field_width",
+          "label": "Field Width",
+          "options": [
+            {
+              "value": "full",
+              "label": "Full Width"
+            },
+            {
+              "value": "half",
+              "label": "Half Width"
+            },
+            {
+              "value": "third",
+              "label": "One Third"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "type": "textarea",
+      "name": "Textarea",
+      "settings": [
+        {
+          "type": "text",
+          "id": "field_name",
+          "label": "Field Name",
+          "default": "body"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Field Label",
+          "default": "Message"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required Field",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "rows",
+          "label": "Number of Rows",
+          "min": 2,
+          "max": 10,
+          "step": 1,
+          "default": 4
+        },
+        {
+          "type": "select",
+          "id": "field_width",
+          "label": "Field Width",
+          "options": [
+            {
+              "value": "full",
+              "label": "Full Width"
+            },
+            {
+              "value": "half",
+              "label": "Half Width"
+            },
+            {
+              "value": "third",
+              "label": "One Third"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "name": "Select Dropdown",
+      "settings": [
+        {
+          "type": "text",
+          "id": "field_name",
+          "label": "Field Name",
+          "default": "subject"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Field Label",
+          "default": "Subject"
+        },
+        {
+          "type": "text",
+          "id": "default_option",
+          "label": "Default Option Text",
+          "default": "Please select..."
+        },
+        {
+          "type": "textarea",
+          "id": "options",
+          "label": "Options",
+          "info": "Enter each option on a new line or separate with commas",
+          "default": "General Inquiry,Support,Sales,Partnership"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required Field",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "field_width",
+          "label": "Field Width",
+          "options": [
+            {
+              "value": "full",
+              "label": "Full Width"
+            },
+            {
+              "value": "half",
+              "label": "Half Width"
+            },
+            {
+              "value": "third",
+              "label": "One Third"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "name": "Checkbox",
+      "settings": [
+        {
+          "type": "text",
+          "id": "field_name",
+          "label": "Field Name",
+          "default": "newsletter"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Checkbox Label",
+          "default": "Subscribe to newsletter"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required Field",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "field_width",
+          "label": "Field Width",
+          "options": [
+            {
+              "value": "full",
+              "label": "Full Width"
+            },
+            {
+              "value": "half",
+              "label": "Half Width"
+            },
+            {
+              "value": "third",
+              "label": "One Third"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "type": "radio",
+      "name": "Radio Buttons",
+      "settings": [
+        {
+          "type": "text",
+          "id": "field_name",
+          "label": "Field Name",
+          "default": "contact_method"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Group Label",
+          "default": "Preferred Contact Method"
+        },
+        {
+          "type": "textarea",
+          "id": "options",
+          "label": "Options",
+          "info": "Enter each option on a new line or separate with commas",
+          "default": "Email,Phone,Text Message"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required Field",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "field_width",
+          "label": "Field Width",
+          "options": [
+            {
+              "value": "full",
+              "label": "Full Width"
+            },
+            {
+              "value": "half",
+              "label": "Half Width"
+            },
+            {
+              "value": "third",
+              "label": "One Third"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "type": "hidden",
+      "name": "Hidden Field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "field_name",
+          "label": "Field Name",
+          "default": "source"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Field Value",
+          "default": "website"
+        }
+      ]
+    },
+    {
+      "type": "spacer",
+      "name": "Spacer",
+      "settings": [
+        {
+          "type": "range",
+          "id": "height",
+          "label": "Spacer Height (px)",
+          "min": 4,
+          "max": 100,
+          "step": 4,
+          "default": 16
+        },
+        {
+          "type": "select",
+          "id": "field_width",
+          "label": "Field Width",
+          "options": [
+            {
+              "value": "full",
+              "label": "Full Width"
+            },
+            {
+              "value": "half",
+              "label": "Half Width"
+            },
+            {
+              "value": "third",
+              "label": "One Third"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    },
+    {
+      "type": "html",
+      "name": "Custom HTML",
+      "settings": [
+        {
+          "type": "html",
+          "id": "html",
+          "label": "HTML Content",
+          "info": "Add custom HTML content like disclaimers, links, or formatted text"
+        },
+        {
+          "type": "select",
+          "id": "field_width",
+          "label": "Field Width",
+          "options": [
+            {
+              "value": "full",
+              "label": "Full Width"
+            },
+            {
+              "value": "half",
+              "label": "Half Width"
+            },
+            {
+              "value": "third",
+              "label": "One Third"
+            }
+          ],
+          "default": "full"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form Builder",
+      "blocks": [
+        {
+          "type": "text_input",
+          "settings": {
+            "field_name": "name",
+            "label": "Full Name",
+            "required": true,
+            "field_width": "half",
+            "autocomplete": "name"
+          }
+        },
+        {
+          "type": "email_input",
+          "settings": {
+            "label": "Email Address",
+            "required": true,
+            "field_width": "half"
+          }
+        },
+        {
+          "type": "select",
+          "settings": {
+            "field_name": "subject",
+            "label": "Subject",
+            "options": "General Inquiry,Support Request,Sales Question,Partnership Opportunity",
+            "required": true,
+            "field_width": "full"
+          }
+        },
+        {
+          "type": "textarea",
+          "settings": {
+            "field_name": "body",
+            "label": "Message",
+            "placeholder": "Please share your message...",
+            "required": true,
+            "rows": 5
+          }
+        },
+        {
+          "type": "checkbox",
+          "settings": {
+            "field_name": "newsletter",
+            "label": "I'd like to receive updates and news via email"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,256 @@
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+@use "utils";
+@use "../config";
+
+/**
+*  Library
+*
+*  Contains mixins and functions.
+*/
+
+/**
+ * rem - Converts pixel value to rem value based on the base font size.
+ *
+ * @param {Number} $px_size - Pixel size to be converted.
+ * @return {Number} - Equivalent rem value.
+ * @usage example - font-size: rem(16);
+*/
+
+@function rem($px_size) {
+	@return math.div(utils.stripUnits($px_size), utils.stripUnits(config.$base-font-size)) * 1rem;
+}
+
+/**
+*  Layout
+*/
+// Margins and positioning helper function
+@function spacer($val: 1) {
+	@return ($spacer * $val)+0;
+}
+
+// Same thing for theme metadata
+@function metadata($request) {
+	@return map.get($_metadata, $request);
+}
+
+
+/**
+* Custom Mixins
+**/
+@mixin transition($type, $duration) {
+	-webkit-transition: #{$type} #{$duration} cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	-moz-transition: #{$type} #{$duration} cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	-o-transition: #{$type} #{$duration} cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transition: #{$type} #{$duration} cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/**
+ *  Center element
+ *  parent element must have position: relative;
+ *
+ *  @variables: xy, x, y
+ *  Default: xy
+ */
+@mixin center($xy: xy) {
+	position: absolute;
+
+	@if $xy ==xy {
+		left: 50%;
+		top: 50%;
+		bottom: auto;
+		right: auto;
+		transform: translate(-50%, -50%);
+	}
+
+	@else if $xy ==x {
+		left: 50%;
+		right: auto;
+		transform: translateX(-50%);
+	}
+
+	@else if $xy ==y {
+		top: 50%;
+		bottom: auto;
+		transform: translateY(-50%);
+	}
+}
+
+// For perfect image ratios
+@mixin imageRatio($height, $width) {
+	content: '';
+	position: relative;
+	display: block;
+	height: 0;
+	width: 100%;
+	padding-top: calc((#{$height} / #{$width}) * 100%);
+}
+
+/**
+*  Breakpoints and Media queries
+*/
+
+// retrieve a breakpoint from a map
+@function bp($breakpoint, $map: config.$breakpoints) {
+	@if (meta.type-of($map) !='map') {
+		@error 'The variable $map must be a map.';
+	}
+
+	@else if map.has-key($map, $breakpoint) {
+		@return map.get($map, $breakpoint);
+	}
+
+	@else {
+		@error 'The key #{$breakpoint} is not in the map.';
+	}
+}
+
+// Apply min-width @media query for a given breakpoint
+// usage: @include screenUp('tablet-landscape')
+@mixin screenUp($breakpoint, $map: config.$breakpoints) {
+	@media screen and (min-width: bp($breakpoint, $map)) {
+		@content;
+	}
+}
+
+// Apply max-width @media query for a given breakpoint
+@mixin screenDown($breakpoint, $map: config.$breakpoints) {
+	@media (max-width: map.get($map, $breakpoint)) {
+		@content;
+	}
+}
+
+// usage: @include screenUp('tablet-portrait', 'laptop')
+@mixin screenBetween($min, $max, $map: config.$breakpoints) {
+	@media screen and (min-width: bp($min, $map)) and (max-width: #{bp($max, $map) - 0.02}) {
+		@content;
+	}
+}
+
+@mixin screenLandscape() {
+	@media screen and (min-aspect-ratio: 1/1) {
+		@content;
+	}
+}
+
+@mixin screenPortrait() {
+	@media screen and (max-aspect-ratio: 1/1) {
+		@content;
+	}
+}
+
+@mixin screenUltrawide() {
+	@media screen and (min-aspect-ratio: 18/9) {
+		@content;
+	}
+}
+
+// 550 is a guestimate
+@mixin screenLandscapePhone {
+	@media screen and (min-aspect-ratio: 1/1) and (max-height: 550px) {
+		@content;
+	}
+}
+
+/**
+* Prefers reduced motion
+*/
+
+/** Usage example, animation not play if user prefers reduced motion.
+	.my-element {
+		@include prefersReducedMotion(false) {
+			animation: my-animation 1s infinite;
+		}
+	}
+**/
+
+@mixin prefersReducedMotion($reduce: true) {
+	$test: null;
+
+	@if ($reduce ==true) {
+		$test: reduce;
+	}
+
+	@else {
+		$test: no-preference;
+	}
+
+	/* stylelint-disable media-feature-name-no-unknown */
+	@media (prefers-reduced-motion: $test) {
+		@content;
+	}
+
+	/* stylelint-enable media-feature-name-no-unknown */
+}
+
+/**
+* Device Primary Hover - Applies styles based on the availability of primary hover capability on the device.
+* Device Has Hover - Applies styles based on the availability of any hover capability on the device.
+
+// Usage example
+// Border will only be shown if the primary input method for this device supports a hover state.
+	.my-element {
+		@include devicePrimaryHover(true) {
+			&:hover,
+			&:focus
+			{
+				border-bottom: 1px solid;
+			}
+		}
+	}
+*/
+
+// Accepts boolean only
+@mixin devicePrimaryHover($shouldExist: true) {
+	$test: null;
+
+	@if ($shouldExist ==true) {
+		$test: hover;
+	}
+
+	@else {
+		$test: none;
+	}
+
+	@media (hover: $test) {
+		@content;
+	}
+}
+
+@mixin deviceHasHover($shouldExist: true) {
+	$test: null;
+
+	@if ($shouldExist ==true) {
+		$test: hover;
+	}
+
+	@else {
+		$test: none;
+	}
+
+	@media (any-hover: $test) {
+		@content;
+	}
+}
+
+/**
+* Placeholder
+*/
+@mixin placeholder($color, $opacity) {
+	&::placeholder {
+		color: $color;
+		opacity: $opacity;
+	}
+
+	&:-ms-input-placeholder {
+		color: $color;
+		opacity: $opacity;
+	}
+
+	&::-ms-input-placeholder {
+		color: $color;
+		opacity: $opacity;
+	}
+}

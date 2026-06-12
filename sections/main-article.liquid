@@ -1,0 +1,75 @@
+<section class="main-article" {{ section.shopify_attributes }}>
+  <article>
+    <h1>{{ article.title }}</h1>
+    <p>
+      {{ 'blogs.article.by_author' | t: author: article.author }}
+      &mdash;
+      {{ article.published_at | time_tag: format: 'date' }}
+    </p>
+
+    {%- if article.image -%}
+      {{
+        article.image
+        | image_url: width: 1200
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '600, 800, 1200',
+          sizes: '(min-width: 1200px) 800px, 100vw',
+          alt: article.image.alt | default: article.title
+      }}
+    {%- endif -%}
+
+    <div class="rte">{{ article.content }}</div>
+
+    {%- if blog.comments_enabled? -%}
+      <div class="article-comments">
+        {%- if article.comments_count > 0 -%}
+          <h3>{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}</h3>
+          {%- paginate article.comments by 20 -%}
+            {%- for comment in article.comments -%}
+              <div class="comment" id="{{ comment.id }}">
+                <p>{{ comment.content }}</p>
+                <p>&mdash; {{ comment.author }}, {{ comment.created_at | time_tag: format: 'date' }}</p>
+              </div>
+            {%- endfor -%}
+            {%- if paginate.pages > 1 -%}
+              {% render 'pagination', paginate: paginate %}
+            {%- endif -%}
+          {%- endpaginate -%}
+        {%- endif -%}
+
+        {%- form 'new_comment', article -%}
+          <h3>{{ 'blogs.comments.title' | t }}</h3>
+          {{ form.errors | default_errors }}
+          <label for="CommentAuthor">{{ 'blogs.comments.name' | t }}</label>
+          <input type="text" id="CommentAuthor" name="comment[author]" value="{{ form.author }}" required>
+          <label for="CommentEmail">{{ 'blogs.comments.email' | t }}</label>
+          <input type="email" id="CommentEmail" name="comment[email]" value="{{ form.email }}" required>
+          <label for="CommentBody">{{ 'blogs.comments.message' | t }}</label>
+          <textarea id="CommentBody" name="comment[body]" required>{{ form.body }}</textarea>
+          <button type="submit" class="button button--primary">{{ 'blogs.comments.post' | t }}</button>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+  </article>
+</section>
+
+{% schema %}
+{
+  "name": "Article",
+  "tag": "section",
+  "class": "section-main-article",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Article"
+    }
+  ]
+}
+{% endschema %}

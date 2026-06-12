@@ -1,0 +1,26 @@
+# Shopify Theme Environments
+# Docs: https://shopify.dev/docs/storefronts/themes/tools/cli/environments
+#
+# Usage:
+#   shopify theme dev --environment development
+#   shopify theme push --environment staging
+#   shopify theme push --environment production
+#
+
+
+[environments.development]
+store = "bone-development-store.myshopify.com"
+# theme-id is optional — omit to create a new unpublished theme on first push,
+# or specify an existing theme ID to target it directly.
+# theme-id = "123456789"
+
+[environments.staging]
+store = "bone-development-store.myshopify.com"
+# theme-id = "123456789"
+
+[environments.production]
+store = "bone-development-store.myshopify.com"
+# theme-id = "123456789"
+# Uncomment below to require explicit confirmation before pushing to production.
+# This prevents accidental overwrites.
+# allow-live = false

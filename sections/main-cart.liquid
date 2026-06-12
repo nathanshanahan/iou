@@ -1,0 +1,65 @@
+<section class="main-cart" {{ section.shopify_attributes }}>
+  <h1>{{ 'cart.title' | t }}</h1>
+  {%- if cart.item_count > 0 -%}
+    {%- form 'cart', cart -%}
+      <ul role="list">
+        {%- for item in cart.items -%}
+          <li class="cart-item">
+            {{
+              item.image
+              | image_url: width: 120
+              | image_tag: loading: 'lazy', alt: item.image.alt | default: item.title, width: 120, height: 120
+            }}
+            <div>
+              <a href="{{ item.url }}">{{ item.product.title }}</a>
+              {%- unless item.product.has_only_default_variant -%}
+                <p>{{ item.variant.title }}</p>
+              {%- endunless -%}
+              <p>{{ item.original_price | money }}</p>
+              <label for="Quantity-{{ item.index | plus: 1 }}">{{ 'cart.item_quantity' | t }}</label>
+              <input
+                id="Quantity-{{ item.index | plus: 1 }}"
+                type="number"
+                name="updates[]"
+                value="{{ item.quantity }}"
+                min="0"
+              >
+            </div>
+            <p>{{ item.final_line_price | money }}</p>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="cart-footer">
+        <p>{{ 'cart.subtotal' | t }}: {{ cart.total_price | money_with_currency }}</p>
+        <button type="submit" name="checkout" class="button button--primary">
+          {{ 'cart.checkout' | t }}
+        </button>
+      </div>
+    {%- endform -%}
+  {%- else -%}
+    <p>{{ 'cart.empty' | t }}</p>
+    <a href="{{ routes.all_products_collection_url }}" class="button button--secondary">
+      {{ 'cart.continue_shopping' | t }}
+    </a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "tag": "section",
+  "class": "section-main-cart",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart"
+    }
+  ]
+}
+{% endschema %}

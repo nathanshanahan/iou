@@ -1,0 +1,36 @@
+@use "helpers/library" as *;
+@use "config" as *;
+
+html {
+	height: 100%;
+	font-size: $base-font-size;
+}
+
+body {
+	background-color: var(--color-background, #000);
+	color: var(--color-foreground, #fff);
+	-webkit-font-smoothing: antialiased;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+::selection {
+	background-color: var(--selection-background, #ccc);
+	color: var(--selection-foreground, #333);
+}
+
+// Breakpoint helpers
+@each $bp, $query in $breakpoints {
+	.hide-below-#{$bp} {
+		@include screenDown($bp) {
+			display: none !important;
+		}
+	}
+
+	.hide-above-#{$bp} {
+		@include screenUp($bp) {
+			display: none !important;
+		}
+	}
+}

@@ -1,0 +1,79 @@
+{
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "main_menu": "Main navigation",
+    "footer_menu": "Footer navigation"
+  },
+  "general": {
+    "search": {
+      "title": "Search",
+      "placeholder": "Search",
+      "search": "Search",
+      "results_with_count": "Search results for \"{{ terms }}\" ({{ count }})",
+      "no_results": "No results for \"{{ terms }}\""
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{ number }}"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out"
+    }
+  },
+  "collections": {
+    "general": {
+      "no_matches": "No products found"
+    }
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "continue_shopping": "Continue shopping",
+    "item_quantity": "Quantity"
+  },
+  "customer": {
+    "account": {
+      "title": "Account"
+    }
+  },
+  "contact": {
+    "form": {
+      "error_heading": "There were some errors with your submission:"
+    }
+  },
+  "blogs": {
+    "article": {
+      "by_author": "By {{ author }}"
+    },
+    "comments": {
+      "title": "Comments",
+      "comments_with_count": "{{ count }} comments",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "post": "Post comment"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "{{ value }} gift card for {{ shop }}",
+      "subtext": "Your gift card",
+      "disabled": "This gift card is disabled",
+      "expired": "Expired on {{ expiry }}",
+      "remaining_html": "Remaining balance: {{ balance }}",
+      "gift_card_code": "Gift card code"
+    }
+  },
+  "404": {
+    "title": "Page not found",
+    "subtext": "The page you were looking for does not exist.",
+    "go_home": "Return to home"
+  }
+}

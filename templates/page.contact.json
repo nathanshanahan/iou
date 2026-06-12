@@ -1,0 +1,105 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "form": {
+      "type": "form",
+      "blocks": {
+        "name": {
+          "type": "text_input",
+          "settings": {
+            "field_name": "name",
+            "label": "Full Name",
+            "placeholder": "Enter your full name",
+            "required": true,
+            "field_width": "half",
+            "autocomplete": "name"
+          }
+        },
+        "email": {
+          "type": "email_input",
+          "settings": {
+            "label": "Email Address",
+            "placeholder": "your@email.com",
+            "required": true,
+            "field_width": "half"
+          }
+        },
+        "phone": {
+          "type": "phone_input",
+          "settings": {
+            "field_name": "phone",
+            "label": "Phone Number",
+            "placeholder": "(555) 123-4567",
+            "required": false,
+            "field_width": "half"
+          }
+        },
+        "subject": {
+          "type": "select",
+          "settings": {
+            "field_name": "subject",
+            "label": "How can we help?",
+            "default_option": "Please select a topic...",
+            "options": "General Question,Product Support,Sales Inquiry,Partnership,Technical Issue,Feedback",
+            "required": true,
+            "field_width": "half"
+          }
+        },
+        "message": {
+          "type": "textarea",
+          "settings": {
+            "field_name": "body",
+            "label": "Your Message",
+            "placeholder": "Please tell us how we can help you...",
+            "required": true,
+            "rows": 5,
+            "field_width": "full"
+          }
+        },
+        "newsletter": {
+          "type": "checkbox",
+          "settings": {
+            "field_name": "newsletter_signup",
+            "label": "I'd like to receive updates, news, and special offers via email",
+            "required": false,
+            "field_width": "full"
+          }
+        },
+        "source": {
+          "type": "hidden",
+          "settings": {
+            "field_name": "source",
+            "value": "contact_page"
+          }
+        }
+      },
+      "block_order": [
+        "name",
+        "email",
+        "phone",
+        "subject",
+        "message",
+        "newsletter",
+        "source"
+      ],
+      "settings": {
+        "heading": "Contact Us",
+        "subheading": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+        "submit_label": "Send Message",
+        "success_message": "Thank you for your message! We'll get back to you within 24 hours.",
+        "section_class": ""
+      }
+    }
+  },
+  "order": [
+    "form"
+  ]
+}

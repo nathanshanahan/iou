@@ -1,0 +1,43 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    {%- if section.settings.menu != blank -%}
+      <nav aria-label="{{ 'accessibility.footer_menu' | t }}">
+        <ul class="site-footer__nav" role="list">
+          {%- for link in section.settings.menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <p class="site-footer__copyright">
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
+      {%- if section.settings.show_payment_icons and shop.enabled_payment_types != blank -%}
+	    {%- for type in shop.enabled_payment_types -%}
+          {{ type | payment_type_svg_tag: class: 'payment-icon' }}
+        {%- endfor -%}
+      {%- endif -%}
+    </p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "footer",
+      "label": "Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "default": true,
+      "label": "Show payment icons"
+    }
+  ]
+}
+{% endschema %}

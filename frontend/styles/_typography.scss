@@ -1,0 +1,62 @@
+@use "helpers/library" as *;
+@use "config" as *;
+
+:root {
+	--type-size-h1: 2rem;
+	--type-size-h2: 1.75rem;
+	--type-size-h3: 1.5rem;
+	--type-size-h4: 1.25rem;
+	--type-size-h5: 1rem;
+	--type-size-h6: 0.825rem;
+
+	@include screenDown('tablet-portrait') {
+		--type-size-h1: 1.5rem;
+		--type-size-h2: 1.25rem;
+	}
+}
+
+.type-style-h1 {
+	font-size: var(--type-size-h1);
+}
+.type-style-h2 {
+	font-size: var(--type-size-h2);
+}
+.type-style-h3 {
+	font-size: var(--type-size-h3);
+}
+.type-style-h4 {
+	font-size: var(--type-size-h4);
+}
+.type-style-h5 {
+	font-size: var(--type-size-h5);
+}
+.type-style-h6 {
+	font-size: var(--type-size-h6);
+}
+
+// Added to RTE in app/filters.php 
+.type-style-body-large {
+	font-size: 1.25rem;
+}
+
+.user-html,
+.mce-content-body  {
+	h1 {
+		@extend .type-style-h1;
+	}
+	h2 {
+		@extend .type-style-h2;
+	}
+	h3 {
+		@extend .type-style-h3;
+	}
+	h4 {
+		@extend .type-style-h4;
+	}
+	h5 {
+		@extend .type-style-h5;
+	}
+	h6 {
+		@extend .type-style-h6;
+	}
+}

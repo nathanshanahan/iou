@@ -1,0 +1,51 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Base Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Your Agency",
+    "theme_documentation_url": "https://bone.digital",
+    "theme_support_url": "https://bone.digital"
+  },
+  {
+    "name": "Tracking",
+    "settings": [
+      {
+        "type": "text",
+        "id": "facebook_pixel_id",
+        "label": "Facebook Pixel ID",
+        "info": "Enter your Facebook Pixel ID to enable Facebook tracking"
+      },
+      {
+        "type": "text",
+        "id": "gtm_id",
+        "label": "Google Tag Manager ID",
+        "info": "Enter your GTM container ID (e.g., GTM-XXXXXXX)"
+      },
+      {
+        "type": "text",
+        "id": "ga_id",
+        "label": "Google Analytics ID",
+        "info": "Enter your Google Analytics measurement ID (e.g., G-XXXXXXXXXX or UA-XXXXXXXXX-X)"
+      }
+    ]
+  },
+  {
+    "name": "Developer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "marker_enabled",
+        "label": "Enable Marker",
+        "info": "Enable Marker.io bug reporting and feedback tool for QA and development",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "marker_id",
+        "label": "Marker ID",
+        "info": "Enter your Marker.io project ID"
+      }
+    ]
+  }
+]
