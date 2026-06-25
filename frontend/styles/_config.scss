@@ -18,25 +18,27 @@ $base-font-size: 16px;
 * Colors
 */
 :root {
-	--color-background: #fff;
-	--color-foreground: #000;
+	--color-background: #000;
+	--color-foreground: #fff;
 	--color-white: #fff;
 	--color-black: #000;
-	--color-border: #cdcdcd;
+	--color-red: #AA241B;
+	--color-muted-red: #982D2C;
+	--color-border: #fff;
 	
 	--background-color: var(--color-background);
 	--foreground-color: var(--color-foreground);
 	
-	--color-accent: red;
-	--highlight-color: red;
+	--color-accent: #AA241B;
+	--highlight-color: #AA241B;
 
 	--ui-default-background: black;
 	--ui-default-color: white;
 	--ui-interact-background: white;
 	--ui-interact-color: black;
-	--ui-focus-color: red; 
+	--ui-focus-color: #AA241B; 
 	
-	--link-interact-color: red;
+	--link-interact-color: #AA241B;
 	--alt-link-interact-color: green;
 	
 	--focus-color: black;
@@ -44,9 +46,9 @@ $base-font-size: 16px;
 	--selection-background: black;
 	--selection-foreground: white;
 
-	--form-error-foreground: red;
+	--form-error-foreground: #AA241B;
 	--form-success-foreground: green;
-	--form-required-foreground: red;
+	--form-required-foreground: #AA241B;
 }
 
 /**

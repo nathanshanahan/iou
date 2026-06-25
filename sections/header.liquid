@@ -1,11 +1,44 @@
 <header class="masthead masthead">
+  <svg
+    class="svg svg--berry-logo"
+    viewBox="0 0 2354 2329"
+    height="50"
+    role="presentation"
+    aria-labelledby="#berry-logo-label"
+  >
+    <title id="berry-logo-label"></title>
+    <use href="#berry-logo"></use>
+  </svg>
+
+  <svg
+    class="svg svg--berry-logo"
+    viewBox="0 0 2084 792"
+    height="50"
+    role="presentation"
+    aria-labelledby="#berry-logo-label"
+  >
+    <title id="berry-logo-label"></title>
+    <use href="#iou-logo"></use>
+  </svg>
+
+  <svg class="svg svg--arrow" viewBox="0 0 735 1973" height="50" role="presentation" aria-labelledby="#arrow-label">
+    <title id="arrow-label"></title>
+    <use href="#arrow"></use>
+  </svg>
+
+  <svg class="svg svg--mail" viewBox="0 0 3125 2233" height="50" role="presentation">
+
+    <use href="#mail"></use>
+  </svg>
+
   <div class="masthead__inner">
     <a href="{{ routes.root_url }}" class="masthead__logo">
       {%- if section.settings.logo != blank -%}
         {{
           section.settings.logo
           | image_url: width: 300
-          | image_tag: loading: 'eager', fetchpriority: 'high', alt: section.settings.logo.alt | default: shop.name
+          | image_tag: loading: 'eager', fetchpriority: 'high', alt: section.settings.logo.alt
+          | default: shop.name
         }}
       {%- else -%}
         {{ shop.name }}
@@ -17,7 +50,12 @@
         <ul class="site-nav__list" role="list">
           {%- for link in section.settings.menu.links -%}
             <li>
-              <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>
+              <a
+                href="{{ link.url }}"
+                {% if link.active %}
+                  aria-current="page"
+                {% endif %}
+              >
                 {{ link.title }}
               </a>
             </li>

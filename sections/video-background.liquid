@@ -1,0 +1,167 @@
+{%- assign desktop_video = section.settings.video_desktop | default: section.settings.video_mobile -%}
+{%- assign mobile_video = section.settings.video_mobile | default: desktop_video -%}
+
+<section
+  class="video-background video-background--desktop-{{ section.settings.height_desktop }}{% if section.settings.enable_mobile_overrides %} has-mobile-overrides video-background--mobile-{{ section.settings.height_mobile }}{% endif %}"
+  {{ section.shopify_attributes }}
+>
+  <div class="video-background__viewport">
+    {%- if desktop_video != blank -%}
+      <div class="video-background__media video-background__media--desktop">
+        {{
+          desktop_video
+          | video_tag:
+            image_size: '2000x',
+            autoplay: section.settings.autoplay_desktop,
+            loop: section.settings.loop_desktop,
+            muted: section.settings.muted_desktop,
+            playsinline: section.settings.playsinline_desktop,
+            controls: false,
+            class: 'video-background__video'
+        }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.enable_mobile_overrides and mobile_video != blank -%}
+      <div class="video-background__media video-background__media--mobile-active">
+        {{
+          mobile_video
+          | video_tag:
+            image_size: '2000x',
+            autoplay: section.settings.autoplay_mobile,
+            loop: section.settings.loop_mobile,
+            muted: section.settings.muted_mobile,
+            playsinline: section.settings.playsinline_mobile,
+            controls: false,
+            class: 'video-background__video'
+        }}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if desktop_video == blank -%}
+    <div class="video-background__placeholder">
+      <p>Add a video in this section's settings.</p>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Video background",
+  "tag": "section",
+  "class": "section-video-background",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Desktop"
+    },
+    {
+      "type": "video",
+      "id": "video_desktop",
+      "label": "Desktop video"
+    },
+    {
+      "type": "select",
+      "id": "height_desktop",
+      "label": "Desktop height",
+      "default": "16-9",
+      "options": [
+        {
+          "value": "16-9",
+          "label": "16:9"
+        },
+        {
+          "value": "viewport-height",
+          "label": "Viewport height"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay_desktop",
+      "label": "Desktop autoplay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "loop_desktop",
+      "label": "Desktop loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "muted_desktop",
+      "label": "Desktop muted",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "playsinline_desktop",
+      "label": "Desktop plays inline",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Mobile overrides"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_overrides",
+      "label": "Enable mobile overrides (below main breakpoint)",
+      "default": false
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "Mobile video override",
+      "info": "Used below the main breakpoint when mobile overrides are enabled. If blank, desktop video is used."
+    },
+    {
+      "type": "select",
+      "id": "height_mobile",
+      "label": "Mobile height",
+      "default": "16-9",
+      "options": [
+        {
+          "value": "16-9",
+          "label": "16:9"
+        },
+        {
+          "value": "viewport-height",
+          "label": "Viewport height"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay_mobile",
+      "label": "Mobile autoplay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "loop_mobile",
+      "label": "Mobile loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "muted_mobile",
+      "label": "Mobile muted",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "playsinline_mobile",
+      "label": "Mobile plays inline",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video background"
+    }
+  ]
+}
+{% endschema %}

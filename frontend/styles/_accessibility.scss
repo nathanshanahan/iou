@@ -15,7 +15,7 @@
 	word-wrap: normal !important;
 }
 
-.screen-reader-text, 
+.screen-reader-text,
 .sr-only {
 	@include screenReaderText;
 }
@@ -27,7 +27,7 @@
 	margin: -1px;
 	overflow: hidden;
 	padding: 0;
-	position: absolute	;
+	position: absolute;
 	width: 1px;
 }
 
@@ -42,11 +42,10 @@
 	transition: background .15s var(--ease);
 	z-index: var(--z-max);
 	border: 1px solid transparent;
+
 	&:hover {
 		color: var(--color-black);
 		background: var(--color-white);
 		border: 1px solid currentColor;
 	}
 }
-
-

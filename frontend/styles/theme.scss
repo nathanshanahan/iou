@@ -5,7 +5,7 @@
 
 // Config & Base (use @use for everything now)
 @use 'reset';
-@use 'config'; 
+@use 'config';
 @use 'helpers';
 @use 'accessibility';
 @use 'typography';
@@ -21,4 +21,3 @@
 
 // Utilities
 @use 'utilities';
-

@@ -9,18 +9,18 @@
 
 
 [environments.development]
-store = "bone-development-store.myshopify.com"
+store = "iou-mushroom.myshopify.com"
 # theme-id is optional — omit to create a new unpublished theme on first push,
 # or specify an existing theme ID to target it directly.
-# theme-id = "123456789"
+# theme-id = "161466351871"
 
 [environments.staging]
-store = "bone-development-store.myshopify.com"
-# theme-id = "123456789"
+store = "iou-mushroom.myshopify.com"
+# theme-id = "161466351871"
 
 [environments.production]
-store = "bone-development-store.myshopify.com"
-# theme-id = "123456789"
+store = "iou-mushroom.myshopify.com"
+# theme-id = "161466351871"
 # Uncomment below to require explicit confirmation before pushing to production.
 # This prevents accidental overwrites.
 # allow-live = false

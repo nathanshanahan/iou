@@ -17,7 +17,7 @@
     </title>
 
     {{ content_for_header }}
-	
+
     {%- render 'tracking' -%}
     {%- render 'qa-tools' -%}
     {%- render 'custom-fonts' -%}
@@ -26,7 +26,6 @@
   </head>
 
   <body class="template-{{ template.name }}{% if template.suffix != blank %} template-{{ template.name }}-{{ template.suffix }}{% endif %}">
-
     {%- render 'gtm-noscript' -%}
 
     <a class="skip-to-link	" href="#MainContent">
@@ -41,7 +40,8 @@
 
     {% sections 'footer-group' %}
 
-    <script src="{{ 'vite-theme.js' | asset_url }}" defer></script>
+    {%- render 'svg-components' -%}
 
+    <script src="{{ 'vite-theme.js' | asset_url }}" defer></script>
   </body>
 </html>
