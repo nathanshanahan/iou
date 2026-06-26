@@ -2,17 +2,32 @@
   "type": "header",
   "name": "Header",
   "sections": {
-    "loading_screen": {
-      "type": "loading-screen",
-      "settings": {}
-    },
     "header": {
       "type": "header",
+      "settings": {
+        "menu": "main-menu"
+      }
+    },
+    "announcement_bar_9W4mU9": {
+      "type": "announcement-bar",
+      "name": "Announcement bar",
+      "settings": {
+        "text": "Black Friday sale running until the end of the weekend • Site wide 40% off",
+        "link": "",
+        "repeat_count": 4,
+        "speed_desktop": 40,
+        "speed_mobile": 40
+      }
+    },
+    "loading_screen_GjjKxf": {
+      "type": "loading-screen",
+      "name": "Loading screen",
       "settings": {}
     }
   },
   "order": [
-    "loading_screen",
-    "header"
+    "header",
+    "loading_screen_GjjKxf",
+    "announcement_bar_9W4mU9"
   ]
 }

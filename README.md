@@ -43,6 +43,28 @@ npm run dev -- --environment development
 | `npm run push:staging` | Push to staging theme |
 | `npm run check` | Run Theme Check linter |
 
+## Pull From Shopify
+
+Use these commands to sync remote theme changes back into your local repo.
+
+### Pull everything from the development environment
+
+```bash
+shopify theme pull --environment development
+```
+
+### Pull JSON files only (templates, section groups, config, locales)
+
+```bash
+shopify theme pull --environment development \
+	--only "templates/*.json" \
+	--only "sections/*.json" \
+	--only "config/*.json" \
+	--only "locales/*.json"
+```
+
+Tip: run the JSON-only pull after making changes in the Shopify customizer so section and template settings are captured locally.
+
 
 ## Project Structure
 
