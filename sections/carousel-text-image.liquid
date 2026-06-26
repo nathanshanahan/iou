@@ -1,0 +1,104 @@
+<section class="carousel-text-image" {{ section.shopify_attributes }}>
+  <div class="grid-container">
+    <div class="carousel-text-image__inner">
+      <div class="carousel-text-image__swiper swiper" data-carousel-text-image>
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            {%- assign block_image = block.settings.image -%}
+            {%- assign block_text = block.settings.text -%}
+            {%- assign block_link = block.settings.link -%}
+            {%- assign block_link_text = block.settings.link_text -%}
+
+            <article class="carousel-text-image__slide swiper-slide" {{ block.shopify_attributes }}>
+              <div class="carousel-text-image__content">
+                <div class="carousel-text-image__copy">
+                  {%- if block_text != blank -%}
+                    <div class="carousel-text-image__text">{{ block_text }}</div>
+                  {%- endif -%}
+
+                </div>
+                {%- if block_link != blank and block_link_text != blank -%}
+                  <a href="{{ block_link }}" class="carousel-text-image__link">{{ block_link_text | escape }}</a>
+                {%- endif -%}
+
+                <div class="carousel-text-image__media">
+                  {%- if block_image != blank -%}
+                    {%- assign block_image_alt = block_image.alt | default: 'Carousel image' -%}
+                    {{
+                      block_image
+                      | image_url: width: 1800
+                      | image_tag:
+                        widths: '480, 720, 960, 1200, 1600, 1800',
+                        sizes: '(max-width: 900px) 100vw, 50vw',
+                        loading: 'lazy',
+                        alt: block_image_alt,
+                        class: 'carousel-text-image__image'
+                    }}
+                  {%- else -%}
+                    <div class="carousel-text-image__image-placeholder"></div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        <div class="carousel-text-image__pagination" data-carousel-text-image-pagination></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carousel text image",
+  "tag": "section",
+  "class": "section-carousel-text-image",
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Slide content text.</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Carousel text image",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

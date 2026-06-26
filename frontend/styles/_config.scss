@@ -58,6 +58,8 @@ $base-font-size: 16px;
 **/
 :root {
 	--transition-default-timing: 250ms;
+	--transition-slow-timing: 600ms;
+	--transition-fast-timing: 150ms;
 	--transition-default-ease: ease-in-out;
 	--transition: all var(--transition-default-timing, 250ms) var(--transition-default-ease, ease-in-out);
 }

@@ -2,6 +2,7 @@
 import GlobalMeasurements from './modules/global-measurements';
 import { watchForReveals } from './modules/reveals';
 import { initMedia } from './modules/media';
+import { initCarouselTextImage } from './modules/carousel-text-image';
 
 window.addEventListener("DOMContentLoaded", function() {
   // Add the site credit
@@ -11,4 +12,5 @@ window.addEventListener("DOMContentLoaded", function() {
   GlobalMeasurements.start();
   watchForReveals();
   initMedia();
+  initCarouselTextImage();
 }, false);
