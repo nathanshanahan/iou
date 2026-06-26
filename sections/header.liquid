@@ -1,83 +1,139 @@
-<header class="masthead masthead">
-  <svg
-    class="svg svg--berry-logo"
-    viewBox="0 0 2354 2329"
-    height="50"
-    role="presentation"
-    aria-labelledby="#berry-logo-label"
-  >
-    <title id="berry-logo-label"></title>
-    <use href="#berry-logo"></use>
-  </svg>
-
-  <svg
-    class="svg svg--berry-logo"
-    viewBox="0 0 2084 792"
-    height="50"
-    role="presentation"
-    aria-labelledby="#berry-logo-label"
-  >
-    <title id="berry-logo-label"></title>
-    <use href="#iou-logo"></use>
-  </svg>
-
-  <svg class="svg svg--arrow" viewBox="0 0 735 1973" height="50" role="presentation" aria-labelledby="#arrow-label">
-    <title id="arrow-label"></title>
-    <use href="#arrow"></use>
-  </svg>
-
-  <svg class="svg svg--mail" viewBox="0 0 3125 2233" height="50" role="presentation">
-
-    <use href="#mail"></use>
-  </svg>
-
+<header class="masthead" data-masthead>
   <div class="masthead__inner">
-    <a href="{{ routes.root_url }}" class="masthead__logo">
+    <a href="{{ routes.root_url }}" class="masthead__logo" aria-label="{{ shop.name }}">
       {%- if section.settings.logo != blank -%}
         {{
           section.settings.logo
-          | image_url: width: 300
+          | image_url: width: 320
           | image_tag: loading: 'eager', fetchpriority: 'high', alt: section.settings.logo.alt
           | default: shop.name
         }}
       {%- else -%}
-        {{ shop.name }}
+        <svg
+          class="svg svg--iou-logo"
+          viewBox="0 0 2084 792"
+          role="presentation"
+          aria-labelledby="iou-logo-title-{{ section.id }}"
+        >
+          <title id="iou-logo-title-{{ section.id }}"></title>
+          <use href="#iou-logo"></use>
+        </svg>
       {%- endif -%}
     </a>
 
-    <nav class="site-nav" aria-label="{{ 'accessibility.main_menu' | t }}">
-      {%- if section.settings.menu != blank -%}
-        <ul class="site-nav__list" role="list">
-          {%- for link in section.settings.menu.links -%}
-            <li>
-              <a
-                href="{{ link.url }}"
-                {% if link.active %}
-                  aria-current="page"
-                {% endif %}
-              >
-                {{ link.title }}
-              </a>
-            </li>
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
-    </nav>
-
-    <div class="masthead__icons">
-      {%- if shop.customer_accounts_enabled -%}
-        <a href="{{ routes.account_url }}" aria-label="{{ 'customer.account.title' | t }}">
-          {% render 'icon-account' %}
-        </a>
-      {%- endif -%}
-
-      <a href="{{ routes.cart_url }}" aria-label="{{ 'cart.title' | t }}">
-        {% render 'icon-cart' %}
-        <span class="cart-count">{{ cart.item_count }}</span>
-      </a>
-    </div>
+    <button
+      class="masthead__menu-trigger"
+      type="button"
+      aria-controls="site-nav-drawer-{{ section.id }}"
+      aria-expanded="false"
+      aria-label="Open menu"
+      data-masthead-trigger
+    >
+      <svg
+        class="svg svg--berry-logo"
+        viewBox="0 0 2354 2329"
+        role="presentation"
+        aria-labelledby="berry-logo-title-{{ section.id }}"
+      >
+        <title id="berry-logo-title-{{ section.id }}"></title>
+        <use href="#berry-logo"></use>
+      </svg>
+    </button>
   </div>
+
+  <aside class="masthead-drawer" id="site-nav-drawer-{{ section.id }}" data-masthead-drawer hidden>
+    <div class="masthead-drawer__inner">
+      <button class="masthead-drawer__close" type="button" aria-label="Close menu" data-masthead-close>
+        <svg class="svg svg--close" viewBox="0 0 24 24" role="presentation" aria-hidden="true">
+          <use href="#icon-x"></use>
+        </svg>
+      </button>
+
+      {%- if section.settings.main_menu != blank -%}
+        <nav class="site-nav site-nav--primary" aria-label="Main navigation">
+          <ul class="site-nav__list" role="list">
+            {%- for link in section.settings.main_menu.links -%}
+              <li>
+                <a
+                  href="{{ link.url }}"
+                  {% if link.active %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      {%- if section.settings.secondary_menu != blank -%}
+        <nav class="site-nav site-nav--secondary" aria-label="Secondary navigation">
+          <ul class="site-nav__list" role="list">
+            {%- for link in section.settings.secondary_menu.links -%}
+              <li>
+                <a
+                  href="{{ link.url }}"
+                  {% if link.active %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    </div>
+  </aside>
 </header>
+
+<script>
+  (() => {
+    const masthead = document.currentScript && document.currentScript.previousElementSibling;
+    if (!masthead || !masthead.hasAttribute('data-masthead')) {
+      return;
+    }
+
+    const trigger = masthead.querySelector('[data-masthead-trigger]');
+    const close = masthead.querySelector('[data-masthead-close]');
+    const drawer = masthead.querySelector('[data-masthead-drawer]');
+    if (!trigger || !close || !drawer) {
+      return;
+    }
+
+    const setOpen = (isOpen) => {
+      masthead.classList.toggle('is-nav-open', isOpen);
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+      if (isOpen) {
+        drawer.hidden = false;
+      } else {
+        window.setTimeout(() => {
+          if (!masthead.classList.contains('is-nav-open')) {
+            drawer.hidden = true;
+          }
+        }, 320);
+      }
+    };
+
+    trigger.addEventListener('click', () => {
+      setOpen(!masthead.classList.contains('is-nav-open'));
+    });
+
+    close.addEventListener('click', () => {
+      setOpen(false);
+    });
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -91,9 +147,14 @@
     },
     {
       "type": "link_list",
-      "id": "menu",
+      "id": "main_menu",
       "default": "main-menu",
-      "label": "Menu"
+      "label": "Main menu"
+    },
+    {
+      "type": "link_list",
+      "id": "secondary_menu",
+      "label": "Secondary menu"
     }
   ]
 }
