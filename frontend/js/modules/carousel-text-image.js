@@ -1,6 +1,7 @@
 import Swiper from 'swiper';
-import { Pagination, A11y } from 'swiper/modules';
+import { Pagination, A11y, EffectFade } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/effect-fade';
 
 export function initCarouselTextImage() {
 	const sliders = document.querySelectorAll('[data-carousel-text-image]');
@@ -10,9 +11,12 @@ export function initCarouselTextImage() {
 		const pagination = slider.querySelector('[data-carousel-text-image-pagination]');
 
 		new Swiper(slider, {
-			modules: [Pagination, A11y],
+				modules: [Pagination, A11y, EffectFade],
 			slidesPerView: 1,
-			spaceBetween: 24,
+				effect: 'fade',
+				fadeEffect: {
+					crossFade: true
+				},
 			speed: 500,
 			pagination: pagination
 				? {
