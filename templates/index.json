@@ -3,7 +3,28 @@
     "main": {
       "type": "main-index",
       "settings": {}
+    },
+    "video_background_pYFMF9": {
+      "type": "video-background",
+      "name": "Video background",
+      "settings": {
+        "video_desktop": "shopify:\/\/files\/videos\/miyagawa.mp4",
+        "height_desktop": "16-9",
+        "autoplay_desktop": true,
+        "loop_desktop": true,
+        "muted_desktop": true,
+        "playsinline_desktop": true,
+        "enable_mobile_overrides": false,
+        "height_mobile": "16-9",
+        "autoplay_mobile": true,
+        "loop_mobile": true,
+        "muted_mobile": true,
+        "playsinline_mobile": true
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "video_background_pYFMF9"
+  ]
 }

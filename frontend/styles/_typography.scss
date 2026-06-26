@@ -1,12 +1,18 @@
 @use "helpers/library" as *;
 @use "config" as *;
 
+body {
+	font-family: var(--font-family-display);
+}
+
+
+
 :root {
 	--type-size-h1: 2rem;
 	--type-size-h2: 1.75rem;
 	--type-size-h3: 1.5rem;
 	--type-size-h4: 1.25rem;
-	--type-size-h5: 1rem;
+	--type-size-h5: 0.9375rem;
 	--type-size-h6: 0.825rem;
 
 	@include screenDown('tablet-portrait') {

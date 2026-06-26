@@ -205,6 +205,14 @@ const measurements = {
 		}
 	},
 
+	announcementBar() {
+		const announcementBar = document.querySelector('[data-announcement-bar]');
+		return {
+			prop: 'announcement-bar-height',
+			value: announcementBar ? announcementBar.clientHeight + 'px' : false,
+		}
+	},
+
 	pageFooter() {
 		const pageFooter = document.querySelector('.page-footer');
 		return {
@@ -272,6 +280,7 @@ const measurements = {
 
 GlobalMeasurements.add(measurements.viewport);
 GlobalMeasurements.add(measurements.masthead);
+GlobalMeasurements.add(measurements.announcementBar);
 GlobalMeasurements.add(measurements.scrollbars);
 GlobalMeasurements.add(measurements.pageFooter);
 GlobalMeasurements.add(measurements.footerSubscribe);

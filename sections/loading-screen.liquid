@@ -1,0 +1,64 @@
+<section class="loading-screen" data-loading-screen>
+  <div class="loading-screen__center">
+    <span class="loading-screen__mask" aria-hidden="true">
+      <svg
+        class="loading-screen__logo"
+        viewBox="0 0 2354 2329"
+        role="presentation"
+        aria-labelledby="berry-loader-title-{{ section.id }}"
+      >
+        <title id="berry-loader-title-{{ section.id }}"></title>
+        <use href="#berry-logo"></use>
+      </svg>
+    </span>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.currentScript && document.currentScript.previousElementSibling;
+    if (!root || !root.hasAttribute('data-loading-screen')) {
+      return;
+    }
+
+    const mask = root.querySelector('.loading-screen__mask');
+    if (!mask) {
+      root.remove();
+      return;
+    }
+
+    const completeAndRemove = () => {
+      root.classList.add('is-complete');
+      window.setTimeout(() => {
+        root.remove();
+      }, 450);
+    };
+
+    mask.addEventListener('animationend', completeAndRemove, { once: true });
+
+    // Safety fallback in case animation events are interrupted.
+    window.setTimeout(completeAndRemove, 2600);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Loading screen",
+  "tag": "div",
+  "class": "section-loading-screen",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Displays a full-screen fake loading animation and removes itself after reveal."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loading screen"
+    }
+  ]
+}
+{% endschema %}

@@ -2,10 +2,17 @@
   "type": "header",
   "name": "Header",
   "sections": {
+    "loading_screen": {
+      "type": "loading-screen",
+      "settings": {}
+    },
     "header": {
       "type": "header",
       "settings": {}
     }
   },
-  "order": ["header"]
+  "order": [
+    "loading_screen",
+    "header"
+  ]
 }

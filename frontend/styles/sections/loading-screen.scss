@@ -1,0 +1,57 @@
+.loading-screen {
+	position: fixed;
+	inset: 0;
+	z-index: var(--z-max);
+	display: grid;
+	place-items: center;
+	width: 100vw;
+	height: 100dvh;
+	background-color: var(--color-black);
+	pointer-events: none;
+	transition: opacity 0.4s ease;
+}
+
+.loading-screen__center {
+	width: min(24rem, 36vw);
+}
+
+.loading-screen__mask {
+	display: block;
+	overflow: hidden;
+	clip-path: inset(100% 0 0 0);
+	animation: loading-screen-mask-reveal 2.1s cubic-bezier(0.18, 0.78, 0.18, 1) forwards;
+	will-change: clip-path;
+}
+
+.loading-screen__logo {
+	display: block;
+	width: 100%;
+	height: auto;
+	color: var(--color-white);
+	fill: currentColor;
+}
+
+.loading-screen.is-complete {
+	opacity: 0;
+}
+
+@keyframes loading-screen-mask-reveal {
+	from {
+		clip-path: inset(100% 0 0 0);
+	}
+
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.loading-screen__mask {
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+	}
+
+	.loading-screen {
+		transition-duration: 0.01ms;
+	}
+}

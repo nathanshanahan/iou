@@ -5,6 +5,11 @@
   Usage: {% render 'custom-fonts' %}
 {% endcomment %}
 
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link href="https://fonts.cdnfonts.com/css/alte-haas-grotesk" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/vci3tvq.css">
+
 {% comment %} Preload critical fonts for performance {% endcomment %}
 {%- comment -%}
   Uncomment and customize these preload links for your fonts:
@@ -15,6 +20,18 @@
 
 {% comment %} Font-face declarations {% endcomment %}
 <style>
+  @font-face {
+    font-family: 'Druk Wide Bold Bold';
+    src: local('Druk Wide Bold Bold'), url('{{ "DrukWideBold.woff" | asset_url }}') format('woff');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  :root {
+    --font-family-display: 'Druk Wide Bold Bold', sans-serif;
+  }
+
   {%- comment -%}
     Customize these @font-face declarations for your project fonts:
     
