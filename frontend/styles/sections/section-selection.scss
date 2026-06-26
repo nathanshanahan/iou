@@ -23,7 +23,7 @@
 
 	&__frame {
 		margin-top: var(--space-6);
-		overflow: hidden;
+		overflow: visible;
 	}
 
 	&__rail {
@@ -33,7 +33,7 @@
 		display: flex;
 		align-items: stretch;
 		gap: var(--section-selection-gap);
-		overflow: hidden;
+		overflow: visible;
 		padding: 0;
 	}
 
@@ -42,6 +42,9 @@
 		min-width: 0;
 		transition: flex-grow 0.45s ease;
 
+        &:nth-of-type(even){
+            transform: translateY(0.75rem);
+        }
 		.section-selection__media img {
 			filter: grayscale(1);
 			transition: filter 0.45s ease;
