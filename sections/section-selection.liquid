@@ -1,0 +1,114 @@
+{%- assign item_count = section.blocks.size -%}
+
+<section class="section-selection" {{ section.shopify_attributes }}>
+  <div class="grid-container">
+    {%- if section.settings.heading != blank -%}
+      <div class="section-selection__heading-wrap">
+        <h2 class="section-selection__heading">{{ section.settings.heading | escape }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="section-selection__frame">
+      <div class="section-selection__rail" style="--section-selection-count: {{ item_count }};">
+        {%- for block in section.blocks -%}
+          {%- assign block_image = block.settings.image -%}
+          {%- assign block_title = block.settings.title -%}
+          {%- assign block_link = block.settings.link -%}
+
+          <article class="section-selection__item" {{ block.shopify_attributes }}>
+            <div class="section-selection__card">
+              <div class="section-selection__media">
+                {%- if block_image != blank -%}
+                  {%- assign block_image_alt = block_image.alt | default: block_title -%}
+                  {{
+                    block_image
+                    | image_url: width: 1400
+                    | image_tag:
+                      widths: '320, 480, 640, 800, 1000, 1200, 1400',
+                      sizes: '(max-width: 900px) 80vw, 20vw',
+                      loading: 'lazy',
+                      alt: block_image_alt,
+                      class: 'section-selection__image'
+                  }}
+                {%- else -%}
+                  <div class="section-selection__image-placeholder"></div>
+                {%- endif -%}
+              </div>
+
+              {%- if block_title != blank -%}
+                {%- if block_link != blank -%}
+                  <a href="{{ block_link }}" class="section-selection__title">{{ block_title | escape }}</a>
+                {%- else -%}
+                  <span class="section-selection__title">{{ block_title | escape }}</span>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Section selection",
+  "tag": "section",
+  "class": "section-section-selection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Artist"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Section selection",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
