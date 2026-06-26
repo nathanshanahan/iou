@@ -84,7 +84,7 @@
 		letter-spacing: 0.06em;
 		text-decoration: none;
         text-align: center;
-        width: calc(100% - var(--grid-column-gap));
+        width: calc(100% - (var(--grid-column-gap) * 2));
         margin-left: var(--grid-column-gap);
         transition: background var(--transition-fast-timing) var(--transition-default-ease), color var(--transition-default-timing) var(--transition-default-ease);
         
