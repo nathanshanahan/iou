@@ -90,12 +90,52 @@
       "settings": {
         "heading": "Explore"
       }
+    },
+    "carousel_text_image_PWfYKF": {
+      "type": "carousel-text-image",
+      "blocks": {
+        "slide_6JpjTT": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IOU_Events_Template_V3_Kneecap_V2.jpg",
+            "text": "<p>Aenean lacinia bibendum nulla sed sectetur. Cras justo odio, dapibus ac facilisis in, egestas eget quam. <\/p>",
+            "link": "shopify:\/\/pages\/contact",
+            "link_text": "Optional CTA"
+          }
+        },
+        "slide_PzeHNq": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IOU_Party1.jpg",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<\/p>",
+            "link": "",
+            "link_text": ""
+          }
+        },
+        "slide_DXibCD": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IOU_Home_Earl.jpg",
+            "text": "<p>Cum sociis natoque penatibus et magnis dis parturient montes, <\/p>",
+            "link": "shopify:\/\/pages\/contact",
+            "link_text": "Optional CTA"
+          }
+        }
+      },
+      "block_order": [
+        "slide_6JpjTT",
+        "slide_PzeHNq",
+        "slide_DXibCD"
+      ],
+      "name": "Carousel text image",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "video_background_pYFMF9",
     "text_block_wefFka",
-    "section_selection_aC8PtK"
+    "section_selection_aC8PtK",
+    "carousel_text_image_PWfYKF"
   ]
 }
