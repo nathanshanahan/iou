@@ -49,53 +49,61 @@
         </svg>
       </button>
 
-    <svg
-        class="svg svg--berry-logo masthead-drawer__logo"
-        viewBox="0 0 2354 2329"
-        height="50"
-        role="presentation"
-      >
-        <use href="#berry-logo"></use>
-    </svg>
+      <div class="masthead-drawer__top-content">
+        <svg
+            class="svg svg--berry-logo masthead-drawer__logo"
+            viewBox="0 0 2354 2329"
+            height="50"
+            role="presentation"
+          >
+            <use href="#berry-logo"></use>
+        </svg>
+
+        {%- if section.settings.main_menu != blank -%}
+          <nav class="site-nav site-nav--primary" aria-label="Main navigation">
+            <ul class="site-nav__list" role="list">
+              {%- for link in section.settings.main_menu.links -%}
+                <li>
+                  <a
+                    href="{{ link.url }}"
+                    {% if link.active %}
+                      aria-current="page"
+                    {% endif %}
+                  >
+                    {{ link.title }}
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </nav>
+        {%- endif -%}
+
+      </div>
+
+      <div class="masthead-drawer__bottom-content">
+        {%- if section.settings.secondary_menu != blank -%}
+          <nav class="site-nav site-nav--secondary" aria-label="Secondary navigation">
+            <ul class="site-nav__list" role="list">
+              {%- for link in section.settings.secondary_menu.links -%}
+                <li>
+                  <a
+                    href="{{ link.url }}"
+                    {% if link.active %}
+                      aria-current="page"
+                    {% endif %}
+                  >
+                    {{ link.title }}
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </nav>
+        {%- endif -%}
+
+      </div>
 
 
-      {%- if section.settings.main_menu != blank -%}
-        <nav class="site-nav site-nav--primary" aria-label="Main navigation">
-          <ul class="site-nav__list" role="list">
-            {%- for link in section.settings.main_menu.links -%}
-              <li>
-                <a
-                  href="{{ link.url }}"
-                  {% if link.active %}
-                    aria-current="page"
-                  {% endif %}
-                >
-                  {{ link.title }}
-                </a>
-              </li>
-            {%- endfor -%}
-          </ul>
-        </nav>
-      {%- endif -%}
 
-      {%- if section.settings.secondary_menu != blank -%}
-        <nav class="site-nav site-nav--secondary" aria-label="Secondary navigation">
-          <ul class="site-nav__list" role="list">
-            {%- for link in section.settings.secondary_menu.links -%}
-              <li>
-                <a
-                  href="{{ link.url }}"
-                  {% if link.active %}
-                    aria-current="page"
-                  {% endif %}
-                >
-                  {{ link.title }}
-                </a>
-              </li>
-            {%- endfor -%}
-          </ul>
-        </nav>
-      {%- endif -%}
     </div>
   </aside>
 </header>

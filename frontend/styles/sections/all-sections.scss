@@ -1,0 +1,10 @@
+@use "sass:math";
+@use "../helpers/library" as *;
+
+:root {
+    --space-section: 6.25rem;
+
+    @include screenDown('main') {
+        --space-section: 3.75rem;
+    }
+}

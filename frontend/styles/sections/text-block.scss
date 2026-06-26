@@ -1,0 +1,44 @@
+@use "../helpers/library" as *;
+
+.text-block{
+    padding-block: var(--space-section);
+
+}
+
+.text-block__content {
+	grid-column: 2 / -2;
+	font-size: var(--type-size-h2);
+	line-height: 1.2;
+	text-align: center;
+    text-wrap: pretty;
+}
+
+.text-block__content--display {
+	font-family: var(--font-family-display);
+}
+
+.text-block__content--base {
+	font-family: var(--font-family-base);
+}
+
+.text-block__content--heading {
+	font-family: var(--font-family-heading);
+}
+
+.text-block__content--uppercase {
+	text-transform: uppercase;
+}
+
+.text-block__content > :first-child {
+	margin-top: 0;
+}
+
+.text-block__content > :last-child {
+	margin-bottom: 0;
+}
+
+@include screenDown('main') {
+	.text-block__content {
+		grid-column: 1 / -1;
+	}
+}

@@ -3,6 +3,7 @@
 
 <section
   class="video-background video-background--desktop-{{ section.settings.height_desktop }}{% if section.settings.enable_mobile_overrides %} has-mobile-overrides video-background--mobile-{{ section.settings.height_mobile }}{% endif %}"
+  style="--video-overlay-delay: {{ section.settings.overlay_delay_seconds }}s;"
   {{ section.shopify_attributes }}
 >
   <div class="video-background__viewport">
@@ -35,6 +36,20 @@
             controls: false,
             class: 'video-background__video'
         }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.overlay_heading != blank or section.settings.overlay_text != blank -%}
+      <div class="video-background__overlay">
+        <div class="video-background__overlay-content">
+          {%- if section.settings.overlay_heading != blank -%}
+            <h2 class="video-background__overlay-heading">{{ section.settings.overlay_heading | escape }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.overlay_text != blank -%}
+            <div class="video-background__overlay-text rte">{{ section.settings.overlay_text }}</div>
+          {%- endif -%}
+        </div>
       </div>
     {%- endif -%}
   </div>
@@ -156,6 +171,30 @@
       "id": "playsinline_mobile",
       "label": "Mobile plays inline",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Overlay text"
+    },
+    {
+      "type": "text",
+      "id": "overlay_heading",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "overlay_text",
+      "label": "Text"
+    },
+    {
+      "type": "range",
+      "id": "overlay_delay_seconds",
+      "label": "Text fade-in delay (seconds)",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 0,
+      "unit": "s"
     }
   ],
   "presets": [

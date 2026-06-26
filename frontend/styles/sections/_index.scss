@@ -1,6 +1,11 @@
+@forward 'all-sections';
 @forward 'main-blog';
 @forward 'main-cart';
 @forward 'main-collection';
 @forward 'form-builder';
 @forward 'video-background';
 @forward 'loading-screen';
+@forward 'text-block';
+
+@use "../helpers/library" as *;
+

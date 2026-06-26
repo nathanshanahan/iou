@@ -1,0 +1,56 @@
+<section class="text-block" {{ section.shopify_attributes }}>
+  <div class="grid-container">
+    <div
+      class="text-block__content text-block__content--{{ section.settings.font_family }}{% if section.settings.uppercase %} text-block__content--uppercase{% endif %}"
+    >
+      {{ section.settings.text }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Text block",
+  "tag": "section",
+  "class": "section-text-block",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Add your text content here.</p>"
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Font family",
+      "default": "base",
+      "options": [
+        {
+          "value": "display",
+          "label": "Display"
+        },
+        {
+          "value": "base",
+          "label": "Base"
+        },
+        {
+          "value": "heading",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase",
+      "label": "Text transform uppercase",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text block"
+    }
+  ]
+}
+{% endschema %}

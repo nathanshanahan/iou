@@ -24,6 +24,49 @@
 	object-fit: cover;
 }
 
+.video-background__overlay {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	display: grid;
+	place-items: center;
+	padding: var(--space-8);
+	pointer-events: none;
+}
+
+.video-background__overlay-content {
+	max-width: min(48rem, 90vw);
+	text-align: center;
+	color: var(--color-white);
+	opacity: 0;
+	animation: video-overlay-fade-in 0.8s ease forwards;
+	animation-delay: var(--video-overlay-delay, 0s);
+}
+
+.video-background__overlay-heading {
+	margin: 0;
+	font-family: var(--font-family-display);
+	font-size: var(--type-size-h2);
+	line-height: 1;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.video-background__overlay-text {
+	margin-top: var(--space-4);
+	font-family: var(--font-family-base);
+	font-size: var(--type-size-h5);
+	line-height: 1.35;
+}
+
+.video-background__overlay-text > :first-child {
+	margin-top: 0;
+}
+
+.video-background__overlay-text > :last-child {
+	margin-bottom: 0;
+}
+
 .video-background--desktop-16-9 {
 	.video-background__viewport {
 		aspect-ratio: 16 / 9;
@@ -44,23 +87,24 @@
 	}
 }
 
-@media screen and (max-width: #{bp('main') - 0.02}) {
+@include screenDown('main') {
+
 	.video-background.has-mobile-overrides {
 		.video-background__media--desktop {
 			display: none;
 		}
-
+	
 		.video-background__media--mobile-active {
 			display: block;
 		}
-
+	
 		&.video-background--mobile-16-9 {
 			.video-background__viewport {
 				aspect-ratio: 16 / 9;
 				height: auto;
 			}
 		}
-
+	
 		&.video-background--mobile-viewport-height {
 			.video-background__viewport {
 				aspect-ratio: auto;
@@ -78,4 +122,20 @@
 	padding: var(--space-12) var(--space-6);
 	background: #f4f4f4;
 	text-align: center;
+}
+
+@keyframes video-overlay-fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.video-background__overlay-content {
+		animation-duration: 0.01ms;
+	}
 }
