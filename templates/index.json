@@ -14,17 +14,88 @@
         "loop_desktop": true,
         "muted_desktop": true,
         "playsinline_desktop": true,
-        "enable_mobile_overrides": false,
-        "height_mobile": "16-9",
+        "enable_mobile_overrides": true,
+        "video_mobile": "shopify:\/\/files\/videos\/miyagawa.mp4",
+        "height_mobile": "viewport-height",
         "autoplay_mobile": true,
         "loop_mobile": true,
         "muted_mobile": true,
-        "playsinline_mobile": true
+        "playsinline_mobile": true,
+        "overlay_heading": "Keeping the Gas on Since '09",
+        "overlay_text": "",
+        "overlay_delay_seconds": 9
+      }
+    },
+    "text_block_wefFka": {
+      "type": "text-block",
+      "name": "Text block",
+      "settings": {
+        "text": "<p>Aenean lacinia bibendum nulla sed consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper nulla non metus auctor fringilla. Cras mattis consectetur purus sit amet fermentum. Nulla vitae elit libero, a pharetra augue.<br\/><br\/>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.<\/p>",
+        "font_family": "base",
+        "uppercase": true
+      }
+    },
+    "section_selection_aC8PtK": {
+      "type": "section-selection",
+      "blocks": {
+        "item_n4aDLT": {
+          "type": "item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IOU_Home_Earl.jpg",
+            "title": "Artist",
+            "link": "shopify:\/\/pages\/contact"
+          }
+        },
+        "item_cgDdcc": {
+          "type": "item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IOU_Home_Earl.jpg",
+            "title": "Artist",
+            "link": "shopify:\/\/pages\/contact"
+          }
+        },
+        "item_XEfWTM": {
+          "type": "item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IOU_Home_Earl.jpg",
+            "title": "Artist",
+            "link": "shopify:\/\/pages\/contact"
+          }
+        },
+        "item_qgEEAt": {
+          "type": "item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IOU_Home_Earl.jpg",
+            "title": "Artist",
+            "link": "shopify:\/\/pages\/contact"
+          }
+        },
+        "item_iwAxYY": {
+          "type": "item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IOU_Home_Earl.jpg",
+            "title": "Artist",
+            "link": "shopify:\/\/pages\/contact"
+          }
+        }
+      },
+      "block_order": [
+        "item_n4aDLT",
+        "item_cgDdcc",
+        "item_XEfWTM",
+        "item_qgEEAt",
+        "item_iwAxYY"
+      ],
+      "name": "Section selection",
+      "settings": {
+        "heading": "Explore"
       }
     }
   },
   "order": [
     "main",
-    "video_background_pYFMF9"
+    "video_background_pYFMF9",
+    "text_block_wefFka",
+    "section_selection_aC8PtK"
   ]
 }

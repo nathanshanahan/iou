@@ -6,11 +6,12 @@
       "type": "header",
       "settings": {
         "main_menu": "main-menu",
-        "secondary_menu": "main-menu"
+        "secondary_menu": "social-media-links-1"
       }
     },
     "loading_screen_GjjKxf": {
       "type": "loading-screen",
+      "disabled": true,
       "name": "Loading screen",
       "settings": {}
     },
