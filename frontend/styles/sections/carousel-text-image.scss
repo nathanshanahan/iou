@@ -69,30 +69,10 @@
         grid-row: 2 / 3;
         margin-bottom: auto;
 		display: block;
-		align-items: center;
-		justify-content: center;
-		// min-height: 3rem;
-		padding: 1rem 1.25rem;
-		border-radius: 0.75rem;
-		background: transparent;
-        border: 1px solid var(--color-red);
-        color: var(--color-red);
-		font-family: var(--font-family-display);
-		font-size: var(--type-size-h4);
-		line-height: 1;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		text-decoration: none;
         text-align: center;
         width: calc(100% - (var(--grid-column-gap) * 2));
         margin-left: var(--grid-column-gap);
-        transition: background var(--transition-fast-timing) var(--transition-default-ease), color var(--transition-default-timing) var(--transition-default-ease);
-        
-        &:hover, 
-        &:focus-visible {
-            color: var(--color-white);
-            background: var(--color-red);
-        }
+		align-self: start;
 
 	}
 

@@ -19,13 +19,30 @@
 .button {
 
 	@include buttonReset();
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 3rem;
+	padding: 1rem 1.25rem;
+	border: 1px solid var(--color-button-border, transparent);
+	border-radius: 0.75rem;
+	font-family: var(--font-family-display);
+	font-size: var(--type-size-h4);
+	line-height: 1;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
 	background: var(--color-button-background, var(--ui-default-background));
 	color: var(--color-button-foreground, var(--ui-default-color));
+	transition:
+		background var(--transition-fast-timing) var(--transition-default-ease),
+		color var(--transition-default-timing) var(--transition-default-ease),
+		border-color var(--transition-default-timing) var(--transition-default-ease);
 
 	&:hover, 
 	&:focus-visible {
 		background-color: var(--color-button-background-interact, var(--ui-interact-background));
 		color: var(--color-button-foreground-interact, var(--ui-interact-color)); 
+		border-color: var(--color-button-border-interact, var(--color-button-border, transparent));
 	}
 
   	&--primary {
@@ -33,6 +50,24 @@
 		--color-button-foreground: white;
 		--color-button-background-interact: black;
 		--color-button-foreground-interact: white;
+	}
+
+	&--outline {
+		--color-button-background: transparent;
+		--color-button-foreground: var(--color-red);
+		--color-button-border: var(--color-red);
+		--color-button-background-interact: var(--color-red);
+		--color-button-foreground-interact: var(--color-white);
+		--color-button-border-interact: var(--color-red);
+	}
+
+	&--solid {
+		--color-button-background: var(--color-red);
+		--color-button-foreground: var(--color-white);
+		--color-button-border: var(--color-red);
+		--color-button-background-interact: var(--color-muted-red);
+		--color-button-foreground-interact: var(--color-white);
+		--color-button-border-interact: var(--color-muted-red);
 	}
 
 }
