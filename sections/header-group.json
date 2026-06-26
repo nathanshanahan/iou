@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Header",
@@ -21,9 +30,9 @@
       "settings": {
         "text": "Black Friday sale running until the end of the weekend • Site wide 40% off",
         "link": "",
-        "repeat_count": 4,
-        "speed_desktop": 40,
-        "speed_mobile": 40
+        "repeat_count": 6,
+        "speed_desktop": 104,
+        "speed_mobile": 118
       }
     }
   },
