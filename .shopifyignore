@@ -1,0 +1,14 @@
+package.json
+package-lock.json
+frontend/
+node_modules/
+README.md
+vite.config.js
+shopify.theme.toml
+.git/
+.gitignore
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
